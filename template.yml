@@ -10,8 +10,34 @@ Resources:
     Properties:
       DisplayName: kamil-sns-topic
       TopicName: kamil-sns-topic
+      Subscription:
+        - Endpoint: !GetAtt SQSQueue.Arn
+          Protocol: sqs
 
   SQSQueue:
     Type: AWS::SQS::Queue
     Properties:
       QueueName: kamil-sqs-queue
+
+
+  SQSQueuePolicy:
+    Type: AWS::SQS::QueuePolicy
+    Properties:
+      Queues:
+        - !Ref SQSQueue
+      PolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal: '*'
+            Action:
+              - 'sqs:ReceiveMessage'
+              - 'sqs:SendMessage'
+              - 'sqs:ChangeMessageVisibility'
+              - 'sqs:DeleteMessage'
+              - 'sqs:PurgeQueue'
+              - 'sqs:ListQueues'
+            Resource: !GetAtt SQSQueue.Arn
+            Condition:
+              StringEquals:
+                aws:SourceArn:
+                  - !Ref SNSTopic
