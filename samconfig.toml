@@ -1,0 +1,10 @@
+git comversion = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "kamil-sns-sqs"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-zvgf9e1jjtn6"
+s3_prefix = "kamil-sns-sqs"
+region = "us-east-1"
+capabilities = "CAPABILITY_IAM"
+image_repositories = []

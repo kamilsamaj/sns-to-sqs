@@ -1,0 +1,17 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform:
+  - AWS::Serverless-2016-10-31
+Description: >
+  Kamil - SNS to SQS template
+
+Resources:
+  SNSTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      DisplayName: kamil-sns-topic
+      TopicName: kamil-sns-topic
+
+  SQSQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: kamil-sqs-queue
