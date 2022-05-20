@@ -10,9 +10,16 @@ Resources:
     Properties:
       DisplayName: kamil-sns-topic
       TopicName: kamil-sns-topic
-      Subscription:
-        - Endpoint: !GetAtt SQSQueue.Arn
-          Protocol: sqs
+       #      Subscription:
+       #        - Endpoint: !GetAtt SQSQueue.Arn
+       #          Protocol: sqs
+
+  SnsSubscription:
+    Type: AWS::SNS::Subscription
+    Properties:
+      Protocol: sqs
+      Endpoint: !GetAtt SQSQueue.Arn
+      TopicArn: !Ref SNSTopic
 
   SQSQueue:
     Type: AWS::SQS::Queue
